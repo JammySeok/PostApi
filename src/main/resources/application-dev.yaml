@@ -1,0 +1,8 @@
+# h2 Database (파일 저장 형식)
+# db_dev.mv.db에 데이터 저장됨
+spring:
+  datasource:
+    url: jdbc:h2:./db_dev;MODE=MySQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver

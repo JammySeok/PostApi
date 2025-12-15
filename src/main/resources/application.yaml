@@ -1,0 +1,24 @@
+spring:
+
+  application:
+    name: post
+
+  profiles:
+    active: dev
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    show-sql: true  # 로그
+    hibernate:
+      ddl-auto: update
+
+    # sql문 보이도록
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
