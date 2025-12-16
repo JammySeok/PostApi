@@ -43,9 +43,9 @@ public class PostInit {
 
     private void postWrite() {
         if (postService.count() < 1L) {
-            postService.writeV1("유저1", "제목1", "내용1");
-            postService.writeV1("유저1", "제목2", "내용2");
-            postService.writeV1("유저2", "제목3", "내용3");
+            postService.writeByNickname("유저1", "제목1", "내용1");
+            postService.writeByNickname("유저1", "제목2", "내용2");
+            postService.writeByNickname("유저2", "제목3", "내용3");
         }
     }
 

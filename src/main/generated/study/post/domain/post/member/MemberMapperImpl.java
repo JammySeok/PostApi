@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-12-15T12:46:40+0900",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.17 (Oracle Corporation)"
+    date = "2025-12-16T12:29:05+0900",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
