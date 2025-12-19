@@ -51,9 +51,9 @@ public class PostInit {
 
     private void commentWrite() {
         if(commentService.count() < 1L) {
-            commentService.write(1L, "유저1", "댓글1");
-            commentService.write(2L, "유저1", "댓글2");
-            commentService.write(3L, "유저2", "댓글3");
+            commentService.writeByNickname(1L, "유저1", "댓글1");
+            commentService.writeByNickname(2L, "유저1", "댓글2");
+            commentService.writeByNickname(3L, "유저2", "댓글3");
         }
     }
 

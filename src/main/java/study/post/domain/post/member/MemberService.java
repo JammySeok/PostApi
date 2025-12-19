@@ -29,8 +29,8 @@ public class MemberService {
                 .toList();
     }
 
-    public String findApiKey(String userid) {
-        Member member = memberRepository.findByUserid(userid).orElseThrow(() -> new UserNotFoundException("유저를 찾을 수 없음"));
-        return member.getApiKey();
+    public MemberDto myPage(MemberDto dto) {
+        Member actor = memberRepository.findById(dto.getId()).orElseThrow(() -> new UserNotFoundException("유저를 찾을 수 없음"));
+        return memberMapper.toDto(actor);
     }
 }

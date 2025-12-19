@@ -3,11 +3,11 @@ package study.post.domain.post.post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import study.post.domain.post.member.Member;
+import study.post.domain.post.member.MemberDto;
 import study.post.domain.post.member.MemberRepository;
 import study.post.golbal.exception.AuthorizationException;
 import study.post.golbal.exception.PostNotFoundException;
 import study.post.golbal.exception.UserNotFoundException;
-import study.post.golbal.request.Rq;
 
 import java.util.List;
 
@@ -18,8 +18,6 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final PostMapper postMapper;
-    private final Rq rq;
-
     public Long count() {
         return postRepository.count();
     }
@@ -36,9 +34,9 @@ public class PostService {
                 .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
     }
 
-    public PostDto write(String title, String content) {
+    public PostDto write(MemberDto dto, String title, String content) {
 
-        Member actor = rq.getActor();
+        Member actor = memberRepository.findById(dto.getId()).orElseThrow(() -> new UserNotFoundException("사용자를 찾을 수 없습니다."));
 
         Post post = new Post();
         post.setMember(actor);
@@ -50,10 +48,10 @@ public class PostService {
         return  postMapper.toDto(post);
     }
 
-    public PostDto modify(Long postId, String title, String content) {
+    public PostDto modify(Long postId, MemberDto dto, String title, String content) {
 
         Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("게시글을 찾을 수 없음"));
-        Member actor = rq.getActor();
+        Member actor = memberRepository.findById(dto.getId()).orElseThrow(() -> new UserNotFoundException("사용자를 찾을 수 없음"));
 
         if(!post.getMember().equals(actor)) {
             throw new AuthorizationException("수정 권한이 없습니다.");
@@ -67,10 +65,10 @@ public class PostService {
         return postMapper.toDto(post);
     }
 
-    public void delete(Long id) {
+    public void delete(Long id, MemberDto dto) {
 
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("게시글을 찾을 수 없음"));
-        Member actor = rq.getActor();
+        Member actor = memberRepository.findById(dto.getId()).orElseThrow(() -> new UserNotFoundException("사용자를 찾을 수 없음"));
 
         if(!post.getMember().equals(actor)) {
             throw new AuthorizationException("삭제 권한이 없습니다.");

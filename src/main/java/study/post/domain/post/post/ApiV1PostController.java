@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.post.domain.post.RsData;
+import study.post.domain.post.member.MemberDto;
+import study.post.golbal.request.Rq;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class ApiV1PostController {
 
     private final PostService postService;
+    private final Rq rq;
 
     record WriteResBody(String title, String content, String apiKey) {}
     record ModifyResBody(String title, String content, String apiKey) {}
@@ -33,7 +36,8 @@ public class ApiV1PostController {
     public ResponseEntity<RsData<PostDto>> writePost(@RequestBody WriteResBody writeResBody) {
 
         // Rq 클래스 도입, service에서 알아서 header의 apiKey 가져옴
-        PostDto rsDto = postService.write(writeResBody.title, writeResBody.content);
+        MemberDto actor = rq.getActor();
+        PostDto rsDto = postService.write(actor, writeResBody.title, writeResBody.content);
 
         RsData<PostDto> rsData = new RsData<>("S-write-post","게시글 작성 성공", rsDto);
         return ResponseEntity.status(200).body(rsData);
@@ -43,7 +47,8 @@ public class ApiV1PostController {
     public ResponseEntity<RsData<PostDto>> modifyAll(@PathVariable("id") Long id,
                                                      @RequestBody ModifyResBody modifyResBody) {
 
-        PostDto rsDto = postService.modify(id, modifyResBody.title, modifyResBody.content);
+        MemberDto actor = rq.getActor();
+        PostDto rsDto = postService.modify(id, actor, modifyResBody.title, modifyResBody.content);
 
         RsData<PostDto> rsData = new RsData<>("S-modify-post", "게시글 수정 성공", rsDto);
         return ResponseEntity.status(200).body(rsData);
@@ -52,7 +57,8 @@ public class ApiV1PostController {
     @DeleteMapping("/{id}")
     public ResponseEntity<RsData<Void>> delete(@PathVariable("id") Long id) {
 
-        postService.delete(id);
+        MemberDto actor = rq.getActor();
+        postService.delete(id, actor);
 
         RsData<Void> rsData = new RsData<>("S-delete-post", "게시글 삭제 성공", null);
         return ResponseEntity.status(200).body(rsData);

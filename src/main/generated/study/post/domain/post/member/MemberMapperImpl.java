@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-12-16T12:29:05+0900",
+    date = "2025-12-19T19:41:26+0900",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -22,8 +22,8 @@ public class MemberMapperImpl implements MemberMapper {
         memberDto.setCreateAt( entity.getCreateAt() );
         memberDto.setId( entity.getId() );
         memberDto.setUserid( entity.getUserid() );
-        memberDto.setPassword( entity.getPassword() );
         memberDto.setNickname( entity.getNickname() );
+        memberDto.setApiKey( entity.getApiKey() );
 
         return memberDto;
     }
@@ -38,9 +38,9 @@ public class MemberMapperImpl implements MemberMapper {
 
         member.setId( dto.getId() );
         member.setUserid( dto.getUserid() );
-        member.setPassword( dto.getPassword() );
         member.setNickname( dto.getNickname() );
         member.setCreateAt( dto.getCreateAt() );
+        member.setApiKey( dto.getApiKey() );
 
         return member;
     }

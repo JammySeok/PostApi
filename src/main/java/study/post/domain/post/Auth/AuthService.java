@@ -18,13 +18,15 @@ public class AuthService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
 
-    public void login(String userid, String password) {
+    public MemberDto login(String userid, String password) {
 
         Member member = memberRepository.findByUserid(userid).orElseThrow(() -> new LoginFailException("아이디를 찾을 수 없거나 비밀번호가 일치하지 않습니다."));
 
         if (!member.getPassword().equals(password)) {
             throw new LoginFailException("아이디를 찾을 수 없거나 비밀번호가 일치하지 않습니다.");
         }
+
+        return memberMapper.toDto(member);
     }
 
     public MemberDto signup (String userid, String password, String nickname) {

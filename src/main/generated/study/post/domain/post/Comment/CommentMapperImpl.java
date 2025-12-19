@@ -7,7 +7,7 @@ import study.post.domain.post.member.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-12-16T12:29:05+0900",
+    date = "2025-12-19T19:41:26+0900",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
