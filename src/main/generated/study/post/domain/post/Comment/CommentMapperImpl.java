@@ -7,8 +7,8 @@ import study.post.domain.post.member.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-12-19T19:41:26+0900",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
+    date = "2025-12-28T16:27:36+0900",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.17 (Oracle Corporation)"
 )
 @Component
 public class CommentMapperImpl implements CommentMapper {

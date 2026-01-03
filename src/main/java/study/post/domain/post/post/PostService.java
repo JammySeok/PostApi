@@ -31,7 +31,7 @@ public class PostService {
     public PostDto findById(Long id) {
         return postRepository.findById(id)
                 .map(postMapper :: toDto)
-                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new PostNotFoundException("게시글을 찾을 수 없습니다."));
     }
 
     public PostDto write(MemberDto dto, String title, String content) {

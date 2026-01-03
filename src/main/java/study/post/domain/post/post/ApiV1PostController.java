@@ -1,5 +1,6 @@
 package study.post.domain.post.post;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class ApiV1PostController {
     private final PostService postService;
     private final Rq rq;
 
-    record WriteResBody(String title, String content, String apiKey) {}
+    record WriteResBody(@NotBlank String title, @NotBlank String content, String apiKey) {}
     record ModifyResBody(String title, String content, String apiKey) {}
 
     @GetMapping()
@@ -31,16 +32,15 @@ public class ApiV1PostController {
         return postService.findById(id);
     }
 
-
     @PostMapping()
-    public ResponseEntity<RsData<PostDto>> writePost(@RequestBody WriteResBody writeResBody) {
+    public ResponseEntity<RsData<PostDto>> writePost(@RequestBody @Valid WriteResBody writeResBody) {
 
         // Rq 클래스 도입, service에서 알아서 header의 apiKey 가져옴
         MemberDto actor = rq.getActor();
         PostDto rsDto = postService.write(actor, writeResBody.title, writeResBody.content);
 
         RsData<PostDto> rsData = new RsData<>("S-write-post","게시글 작성 성공", rsDto);
-        return ResponseEntity.status(200).body(rsData);
+        return ResponseEntity.status(201).body(rsData);
     }
 
     @PutMapping("/{id}")
